@@ -1,0 +1,136 @@
+
+<div class="row mt-5">
+  <div class="col-md-8 offset-md-2">
+    <h2 class="text-center">CRUD Example</h2>
+    <a [routerLink]="['/home/addproject/0']" class="btn btn-primary btn-sm float-right my-2">Add Project</a>
+        <table class="table table-sm table-hover table-bordered" >
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Project Name</th>
+              <th>Duration</th>
+              <th>Cost</th>
+              <th>Date(mm/dd/yyyy)</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of projectsList; let i=index" [routerLink]="['/home/projects']">
+              <td>{{ i+1 }}</td>
+              <td><a >{{ item.projectName }}</a></td>
+              <td>{{ item.duration }}</td>
+              <td>{{ item.cost }}</td>
+              <td>{{ item.projectDate | date:'dd LLLL,yyyy' }}</td>
+              <td style="width:18%">
+                <a [routerLink]="" (click)="deleteproject(item.id)" class="btn btn-danger btn-sm float-right mx-2">Delete</a>
+                <a [routerLink]="['/home/addproject/', item.id]" class="btn btn-primary btn-sm float-right mx-2">Edit</a>
+              </td> 
+            </tr>
+          </tbody>
+        </table>
+  </div>
+</div>
+ 
+
+<div class="row mt-5">
+  <div class="col-md-8 offset-md-2 ">
+    <h2 class="text-center">Grid Control Example</h2>
+    <div class="card">
+      <div class="card-body d-flex flex-row">
+        <div class="flex-fill d-flex flex-column">
+          <div>
+            <label>suppressQuotes = </label>
+            <select id="suppressQuotes">
+              <option value="none">(default)</option>
+              <option value="true">true</option>
+            </select>
+          </div>
+          <div>
+            <label>columnSeparator = </label>
+            <select id="columnSeparator">
+              <option value="none">(default)</option>
+              <option value="tab">tab</option>
+              <option value="|">bar (|)</option>
+            </select>
+          </div>
+        </div>
+        <div class="flex-fill d-flex flex-column">
+          <div>
+            <label>customHeader = </label>
+            <select id="customHeader">
+              <option>none</option>
+              <option value="array">ExcelCell[][] (recommended format)</option>
+              <option value="string">string (legacy format)</option>
+            </select>
+          </div>
+          <div>
+            <label>customFooter = </label>
+            <select id="customFooter">
+              <option>none</option>
+              <option value="array">ExcelCell[][] (recommended format)</option>
+              <option value="string">string (legacy format)</option>
+            </select>
+          </div>
+        </div>
+        <div class="flex-fill d-flex flex-column">
+          <label><input type="checkbox" id="onlySelected" /> onlySelected = true</label>
+          <button (click)="onBtnExport()">
+            Download file (Export Data As Csv)
+          </button>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  <div class="col-md-8 offset-md-2">
+    <div class="d-flex flex-row align-items-streach">
+      <div class="flex-fill">
+        <div class="card" style="height: 100%;">
+          <div class="card-body">
+              Select columns to show then hit 'Apply'<br />
+              <label class="mx-2"><input type="checkbox" id="projectName" class="mx-1"/>Project Name</label>
+              <label class="mx-2"><input type="checkbox" id="duration" class="mx-1"/>Duration</label>
+              <label class="mx-2"><input type="checkbox" id="cost" class="mx-1"/>Cost</label>
+              <label class="mx-2"><input type="checkbox" id="date" class="mx-1"/>Date</label>
+              <button (click)="onBtApply()" class="btn btn-primary btn-sm mx-2">Apply</button>
+            </div>
+        </div>
+      </div>
+      <div class="flex-fill">
+        <div class="card">
+          <div class="card-body">
+            Default Record per page is 5.<br />
+            Page Size:
+            <input type="text" id="page-size">
+            <button (click)="onPageSizeChanged()" class="btn btn-primary btn-sm mx-2">Apply</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="col-md-8 offset-md-2">
+    
+    <ag-grid-angular
+    class="ag-theme-alpine"
+    [rowData]="projectsList"
+    [columnDefs]="columnDefs"
+    [rowDeselection]="true"
+    [suppressRowClickSelection]="true"
+    [rowSelection]="rowSelection"
+    [rowGroupPanelShow]="rowGroupPanelShow"
+    [pivotPanelShow]="pivotPanelShow"
+    [paginationPageSize]="paginationPageSize"
+    [pagination]="true"
+    (cellClicked)="alert2($event)"
+    [rowMultiSelectWithClick]="true"
+    [domLayout]="domLayout"
+    (gridReady)="onGridReady($event)"
+    >
+</ag-grid-angular>
+  </div>
+  
+</div>
+
+

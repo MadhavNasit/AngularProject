@@ -1,0 +1,9 @@
+<nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand text-white">Angular Project</a>
+    <div>
+      <span class="mr-2" style="color: white;" *ngIf="userName">Welcome: {{userName}}</span>
+      <button class="btn btn-danger my-2 my-sm-0" (click)="onLogout()">Logout</button>
+    </div>
+    
+  </nav>
+  <router-outlet></router-outlet>
